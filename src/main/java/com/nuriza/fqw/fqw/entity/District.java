@@ -15,10 +15,18 @@ import javax.persistence.Id;
 @Getter
 public class District {
     @Id
-    @Column(name = "flt_id")
-    private Integer flt_id;
+    @Column(name = "district_id")
+    private Integer districtId;
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "city")
     private String city;
+
+    @Column(name = "is_quiet")
     private Integer isQuiet;
+
+    @Column(name = "square")
+    Integer square;
 }

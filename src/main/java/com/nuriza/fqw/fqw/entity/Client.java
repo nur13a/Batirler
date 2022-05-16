@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -17,9 +18,15 @@ import javax.persistence.Id;
 public class Client {
     @Id
     @Column(name = "clnt_id")
-    private Integer clnt_id;
+    private Integer clntId;
 
+    @Column(name = "name")
     private String name;
-    private Integer phone;
-    private Integer clientCatId;
+
+    @Column(name = "phone")
+    private String phone;
+
+    @ManyToOne
+    @Column(name = "clnt_cat_id")
+    private ClientCategories clientCatId;
 }

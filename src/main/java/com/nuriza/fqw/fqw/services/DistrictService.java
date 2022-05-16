@@ -1,4 +1,6 @@
 package com.nuriza.fqw.fqw.services;
 
-public interface DistrictService {
+import com.nuriza.fqw.fqw.entity.District;
+
+public interface DistrictService extends BaseService<District>{
 }

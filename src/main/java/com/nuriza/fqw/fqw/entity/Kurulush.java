@@ -7,6 +7,7 @@ import lombok.Setter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 @AllArgsConstructor
@@ -15,12 +16,20 @@ import javax.persistence.Id;
 @Getter
 public class Kurulush {
     @Id
-    @Column(name = "flt_id")
-    private Integer bld_id;
+    @Column(name = "kurulush_id")
+    private Integer kurulushId;
 
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "square_area")
     private Integer squareArea;
-    private Integer DistrictArea;
+
+    @ManyToOne
+    @Column(name = "district")
+    private District district;
+
+    @Column(name = "name")
     private Integer floor_number;
 
 }

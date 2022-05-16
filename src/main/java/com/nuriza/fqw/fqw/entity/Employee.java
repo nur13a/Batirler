@@ -16,11 +16,18 @@ import java.util.Date;
 @Getter
 public class Employee {
     @Id
-    @Column(name = "flt_id")
-    private Integer emp_id;
+    @Column(name = "emp_id")
+    private Integer empId;
 
+    @Column(name = "name")
     private String name;
-    private Date start_date;
-    private Date end_date;
+
+    @Column(name = "name")
+    private Date startDate;
+
+    @Column(name = "end_date")
+    private Date endDate;
+
+    @Column(name = "emp_position")
     private String employeePosition;
 }

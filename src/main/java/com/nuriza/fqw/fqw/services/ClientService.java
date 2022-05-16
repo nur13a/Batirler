@@ -1,4 +1,6 @@
 package com.nuriza.fqw.fqw.services;
 
-public interface ClientService {
+import com.nuriza.fqw.fqw.entity.Client;
+
+public interface ClientService extends BaseService<Client> {
 }

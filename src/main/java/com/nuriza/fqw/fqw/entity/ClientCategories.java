@@ -15,9 +15,10 @@ import javax.persistence.Id;
 @Getter
 public class ClientCategories {
     @Id
-    @Column(name = "flt_id")
-    private Integer flt_id;
+    @Column(name = "cat_id")
+    private Integer catId;
 
+    @Column(name = "name")
     private String name;
 
 }

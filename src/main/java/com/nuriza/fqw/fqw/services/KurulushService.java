@@ -1,4 +1,6 @@
 package com.nuriza.fqw.fqw.services;
 
-public interface KurulushService {
+import com.nuriza.fqw.fqw.entity.Kurulush;
+
+public interface KurulushService extends BaseService<Kurulush> {
 }

@@ -1,4 +1,6 @@
 package com.nuriza.fqw.fqw.services;
 
-public interface EmployeeService {
+import com.nuriza.fqw.fqw.entity.Employee;
+
+public interface EmployeeService extends BaseService<Employee> {
 }
