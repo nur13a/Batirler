@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ClientCatRepository extends JpaRepository<Integer, ClientCategories> {
+public interface ClientCatRepository extends JpaRepository<ClientCategories,Integer> {
 }

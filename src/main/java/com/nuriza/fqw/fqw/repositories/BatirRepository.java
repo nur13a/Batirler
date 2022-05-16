@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BatirRepository extends JpaRepository<Integer, Batir> {
+public interface BatirRepository extends JpaRepository<Batir, Integer> {
 }
