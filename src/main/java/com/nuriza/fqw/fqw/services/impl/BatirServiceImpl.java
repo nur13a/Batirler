@@ -12,7 +12,7 @@ import java.util.List;
 public class BatirServiceImpl implements BatirService {
 
     private BatirRepository repository;
-    private final CorrelationServiceImpl correlationService;
+
     @Autowired
     public  BatirServiceImpl (BatirRepository batirRepository){
         this.repository = batirRepository;
@@ -42,4 +42,6 @@ repository.delete(batir);
     public Batir update(Batir batir) {
         return repository.save(batir);
     }
+
+
 }

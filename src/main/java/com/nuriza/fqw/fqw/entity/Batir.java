@@ -31,16 +31,12 @@ public class Batir {
     private Integer isSell;
 
     @ManyToOne
-    @Column(name = "kurulush_id")
+    @JoinColumn(name = "kurulush_id")
     private Kurulush kurulushId;
 
     @ManyToOne
-    @Column(name = "client_id")
+    @JoinColumn(name = "client_id")
     private Client clientId;
-
-    @OneToOne
-    @Column(name = "employee_id")
-    private Client employeeId;
 
     @Column(name = "sell_date")
     private Date sellDate;

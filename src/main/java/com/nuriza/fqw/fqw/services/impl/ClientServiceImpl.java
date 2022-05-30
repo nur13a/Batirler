@@ -40,4 +40,9 @@ public class ClientServiceImpl implements ClientService {
     public Client update(Client client) {
         return repository.save(client);
     }
+
+    @Override
+    public Client getByName(String name) {
+        return repository.findByName(name);
+    }
 }

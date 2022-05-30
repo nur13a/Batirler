@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+
+import javax.persistence.*;
 
 
 @Entity
@@ -27,6 +25,6 @@ public class Client {
     private String phone;
 
     @ManyToOne
-    @Column(name = "clnt_cat_id")
+    @JoinColumn(name = "clnt_cat_id")
     private ClientCategories clientCatId;
 }

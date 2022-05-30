@@ -4,10 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+
+import javax.persistence.*;
 
 @Entity
 @AllArgsConstructor
@@ -26,10 +24,10 @@ public class Kurulush {
     private Integer squareArea;
 
     @ManyToOne
-    @Column(name = "district")
+    @JoinColumn(name = "district")
     private District district;
 
-    @Column(name = "name")
+    @Column(name = "floor_number")
     private Integer floor_number;
 
 }

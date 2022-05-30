@@ -4,6 +4,7 @@ import com.nuriza.fqw.fqw.services.BatirService;
 import com.nuriza.fqw.fqw.services.ClientService;
 import com.nuriza.fqw.fqw.services.EmployeeService;
 import com.nuriza.fqw.fqw.services.KurulushService;
+import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +18,7 @@ public class CorrelationServiceImpl {
     private EmployeeService employeeService;
     private KurulushService kurulushService;
 
-    @Autowired
+
     public CorrelationServiceImpl(BatirService batirService,
                                   ClientService clientService,
                                   EmployeeService employeeService,
@@ -45,5 +46,10 @@ public class CorrelationServiceImpl {
                         sumY * sumY)));
         return correlation;
 
+    }
+
+    public double getPearsonCorrelation(double[] x, double[] y) {
+        PearsonsCorrelation correlation = new PearsonsCorrelation();
+        return correlation.correlation(x, y);
     }
 }

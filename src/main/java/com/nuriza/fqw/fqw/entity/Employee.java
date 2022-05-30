@@ -22,7 +22,7 @@ public class Employee {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "name")
+    @Column(name = "start_date")
     private Date startDate;
 
     @Column(name = "end_date")
