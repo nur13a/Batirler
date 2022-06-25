@@ -1,9 +1,10 @@
 package com.nuriza.fqw.fqw.controllers;
 
 import com.nuriza.fqw.fqw.entity.Batir;
-import com.nuriza.fqw.fqw.entity.Client;
 import com.nuriza.fqw.fqw.services.BatirService;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("api/v1/batir")
 public class BatirController {
-    private BatirService batirService;
+    @NonNull private BatirService batirService;
 
     @GetMapping
     public List<Batir> getAllBatirs() {
@@ -20,16 +21,28 @@ public class BatirController {
     }
 
     @PostMapping
-    public String save(Batir batir) {
+    public ResponseEntity<?> save(Batir batir) {
         try {
-            batirService.create(batir);
-            return "Batir успешно сохранен";
+            return ResponseEntity.ok().body(batirService.create(batir));
         } catch (Exception e) {
-            return e.getMessage();
+            return ResponseEntity.ok().body(e.getMessage());
         }
     }
-    /*@GetMapping("/{name}")
-    public Client getClientByName(@PathVariable("name") String name){
-        return batirService.getByName(name);
-    }*/
+
+    @GetMapping("/{name}/{kurulush_id}")
+    public ResponseEntity<?> getBatirByName(@PathVariable("name") String name, @PathVariable("kurulush_id") Integer kur_id) {
+        return ResponseEntity.ok().body(batirService.getByName(name, kur_id));
+    }
+
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody Batir batir) {
+        return ResponseEntity.ok().body(batirService.update(batir));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteBatir(@PathVariable("id") Integer id) {
+        Batir batir = batirService.getById(id);
+        batirService.delete(batir);
+        return ResponseEntity.ok("Batir deleted");
+    }
 }

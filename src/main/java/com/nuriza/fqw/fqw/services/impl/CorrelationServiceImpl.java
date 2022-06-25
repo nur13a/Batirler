@@ -1,9 +1,6 @@
 package com.nuriza.fqw.fqw.services.impl;
 
-import com.nuriza.fqw.fqw.services.BatirService;
-import com.nuriza.fqw.fqw.services.ClientService;
-import com.nuriza.fqw.fqw.services.EmployeeService;
-import com.nuriza.fqw.fqw.services.KurulushService;
+import com.nuriza.fqw.fqw.services.*;
 import org.apache.commons.math3.stat.correlation.PearsonsCorrelation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +9,7 @@ import java.math.BigInteger;
 import java.util.List;
 
 @Service
-public class CorrelationServiceImpl {
+public class CorrelationServiceImpl implements CorrelationService {
     private BatirService batirService;
     private ClientService clientService;
     private EmployeeService employeeService;
@@ -27,6 +24,12 @@ public class CorrelationServiceImpl {
         this.clientService = clientService;
         this.employeeService = employeeService;
         this.kurulushService = kurulushService;
+    }
+
+    public Double getCorrelationBatir() {
+        List<Integer> squareList = batirService.getSquares();
+        List<Integer> priceList = batirService.getPrices();
+        return calculatePearsonCorrelationCoef(squareList, priceList, priceList.size());
     }
 
     public Double calculatePearsonCorrelationCoef(List<Integer> x, List<Integer> y, int n) {
@@ -44,7 +47,15 @@ public class CorrelationServiceImpl {
                 (Math.sqrt((n * squareSumX -
                         sumX * sumX) * (n * squareSumY -
                         sumY * sumY)));
-        return correlation;
+
+
+        double []doubleX = new double[x.size()];
+        double []doubleY = new double[y.size()];
+        for (int i = 0; i < n; i++) {
+            doubleX[i]= x.get(i);
+            doubleY[i]=y.get(i);
+        }
+        return getPearsonCorrelation(doubleX,doubleY);
 
     }
 

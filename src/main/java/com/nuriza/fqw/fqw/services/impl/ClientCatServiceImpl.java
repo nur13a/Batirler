@@ -24,8 +24,8 @@ public class ClientCatServiceImpl implements ClientCatService {
     }
 
     @Override
-    public void create(ClientCategories clientCategories) {
-        repository.save(clientCategories);
+    public ClientCategories create(ClientCategories clientCategories) {
+       return repository.save(clientCategories);
     }
 
     @Override

@@ -6,6 +6,8 @@ import com.nuriza.fqw.fqw.services.BatirService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,7 +16,7 @@ public class BatirServiceImpl implements BatirService {
     private BatirRepository repository;
 
     @Autowired
-    public  BatirServiceImpl (BatirRepository batirRepository){
+    public BatirServiceImpl(BatirRepository batirRepository) {
         this.repository = batirRepository;
     }
 
@@ -24,8 +26,8 @@ public class BatirServiceImpl implements BatirService {
     }
 
     @Override
-    public void create(Batir batir) {
-repository.save(batir);
+    public Batir create(Batir batir) {
+        return repository.save(batir);
     }
 
     @Override
@@ -35,7 +37,7 @@ repository.save(batir);
 
     @Override
     public void delete(Batir batir) {
-repository.delete(batir);
+        repository.delete(batir);
     }
 
     @Override
@@ -44,4 +46,26 @@ repository.delete(batir);
     }
 
 
+    @Override
+    public Batir getByName(String name, Integer id) {
+        return repository.findByRoomNumberAndKurulushId(name, id);
+    }
+
+    @Override
+    public List<Integer> getPrices() {
+        List<Integer> priceList = new ArrayList<>();
+        for (Batir b : repository.findAll()) {
+            priceList.add(b.getPrice());
+        }
+        return priceList;
+    }
+
+    @Override
+    public List<Integer> getSquares() {
+        List<Integer> squareList = new ArrayList<>();
+        for (Batir b : repository.findAll()) {
+            squareList.add(b.getSquare());
+        }
+        return squareList;
+    }
 }

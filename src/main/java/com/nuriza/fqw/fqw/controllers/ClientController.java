@@ -1,36 +1,65 @@
 package com.nuriza.fqw.fqw.controllers;
 
+import com.nuriza.fqw.fqw.entity.Batir;
 import com.nuriza.fqw.fqw.entity.Client;
+import com.nuriza.fqw.fqw.entity.ClientCategories;
+import com.nuriza.fqw.fqw.services.ClientCatService;
 import com.nuriza.fqw.fqw.services.ClientService;
 import lombok.AllArgsConstructor;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("client")
-@AllArgsConstructor
+@RequestMapping("api/v1/client")
+@RequiredArgsConstructor
 public class ClientController {
+    @NonNull
     private ClientService clientService;
+    @NonNull
+    private ClientCatService clientCatService;
 
     @GetMapping
-    public List<Client> getAllClients() {
-        return clientService.getAll();
+    public ResponseEntity<List<Client>> getAllClients() {
+        return ResponseEntity.ok(clientService.getAll());
     }
 
     @PostMapping
-    public String save(Client client) {
+    public ResponseEntity<?> save(Client client) {
         try {
-            clientService.create(client);
-            return "Клиент успешно сохранен";
+            return ResponseEntity.status(HttpStatus.CREATED).body(clientService.create(client));
         } catch (Exception e) {
-            return e.getMessage();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
         }
     }
+
     @GetMapping("/{name}")
-    public Client getClientByName(@PathVariable("name") String name){
-        return clientService.getByName(name);
+    public ResponseEntity<?> getClientByName(@PathVariable("name") String name) {
+        return ResponseEntity.ok(clientService.getByName(name));
+    }
+
+    @PutMapping
+    public ResponseEntity<?> update(@RequestBody Client client) {
+        return ResponseEntity.ok().body(clientService.update(client));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteClient(@PathVariable("id") Integer id) {
+        Client client = clientService.getById(id);
+        clientService.delete(client);
+        return ResponseEntity.ok("Client deleted");
+    }
+
+    @PostMapping("/clientCat")
+    public ResponseEntity<?> saveCategory(ClientCategories category) {
+        try {
+            return ResponseEntity.status(HttpStatus.CREATED).body(clientCatService.create(category));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+        }
     }
 }

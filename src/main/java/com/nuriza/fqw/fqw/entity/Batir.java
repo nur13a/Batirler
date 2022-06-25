@@ -38,10 +38,14 @@ public class Batir {
     @JoinColumn(name = "client_id")
     private Client clientId;
 
+    @ManyToOne
+    @JoinColumn(name = "employee_id")
+    private Employee employee;
+
     @Column(name = "sell_date")
     private Date sellDate;
 
     @Column(name = "price")
-    private String price;
+    private Integer price;
 
 }

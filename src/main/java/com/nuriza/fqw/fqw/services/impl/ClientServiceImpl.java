@@ -7,13 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class ClientServiceImpl implements ClientService {
     private ClientRepository repository;
 
     @Autowired
-    public ClientServiceImpl (ClientRepository repository){
-        this.repository=repository;
+    public ClientServiceImpl(ClientRepository repository) {
+        this.repository = repository;
     }
 
     @Override
@@ -22,8 +23,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public void create(Client client) {
-        repository.save(client);
+    public Client create(Client client) {
+        return repository.save(client);
     }
 
     @Override

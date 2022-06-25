@@ -23,8 +23,8 @@ public class KurulushServiceImpl implements KurulushService {
     }
 
     @Override
-    public void create(Kurulush kurulush) {
-        repository.save(kurulush);
+    public Kurulush create(Kurulush kurulush) {
+        return repository.save(kurulush);
     }
 
     @Override
@@ -40,5 +40,10 @@ public class KurulushServiceImpl implements KurulushService {
     @Override
     public Kurulush update(Kurulush kurulush) {
         return repository.save(kurulush);
+    }
+
+    @Override
+    public Kurulush getByName(String name) {
+        return repository.findByName(name);
     }
 }
