@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface KurulushRepository extends JpaRepository<Kurulush,Integer> {
+public interface KurulushRepository extends JpaRepository<Kurulush,Long> {
     Kurulush findByName(String name);
 }

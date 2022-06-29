@@ -1,9 +1,6 @@
 package com.nuriza.fqw.fqw.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -13,10 +10,13 @@ import java.util.Date;
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
 public class Batir {
     @Id
+    @SequenceGenerator(name="identifier", sequenceName="mytable_id_seq", allocationSize=1)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator="identifier")
     @Column(name = "batir_id")
-    private Integer batirId;
+    private Long batirId;
 
     @Column(name = "room_number")
     private Integer roomNumber;
@@ -28,9 +28,9 @@ public class Batir {
     private Integer square;
 
     @Column(name = "is_sell")
-    private Integer isSell;
+    private Boolean isSell;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "kurulush_id")
     private Kurulush kurulushId;
 

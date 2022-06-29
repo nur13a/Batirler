@@ -26,7 +26,7 @@ return repository.save(district);
     }
 
     @Override
-    public District getById(Integer id) {
+    public District getById(Long id) {
         return repository.findById(id).orElse(new District());
     }
 

@@ -1,11 +1,13 @@
 package com.nuriza.fqw.fqw.controllers;
 
 import com.nuriza.fqw.fqw.entity.Batir;
+import com.nuriza.fqw.fqw.models.BatirDto;
 import com.nuriza.fqw.fqw.services.BatirService;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -13,20 +15,27 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("api/v1/batir")
 public class BatirController {
-    @NonNull private BatirService batirService;
+    @NonNull
+    private BatirService batirService;
+
+
+    @GetMapping("/list")
+    public ModelAndView showBatirs() {
+        ModelAndView mav = new ModelAndView();
+        mav.setViewName("index");
+        mav.addObject("batirs", batirService.getAll());
+        return mav;
+    }
 
     @GetMapping
     public List<Batir> getAllBatirs() {
         return batirService.getAll();
     }
 
-    @PostMapping
-    public ResponseEntity<?> save(Batir batir) {
-        try {
-            return ResponseEntity.ok().body(batirService.create(batir));
-        } catch (Exception e) {
-            return ResponseEntity.ok().body(e.getMessage());
-        }
+    @PostMapping("/saveBatir")
+    public ModelAndView saveEmployee(@ModelAttribute BatirDto batir) {
+        batirService.createFromDto(batir);
+        return new ModelAndView("redirect:list");
     }
 
     @GetMapping("/{name}/{kurulush_id}")
@@ -34,15 +43,27 @@ public class BatirController {
         return ResponseEntity.ok().body(batirService.getByName(name, kur_id));
     }
 
-    @PutMapping
-    public ResponseEntity<?> update(@RequestBody Batir batir) {
-        return ResponseEntity.ok().body(batirService.update(batir));
+    @GetMapping("/updateBatirForm")
+    public ModelAndView update(@RequestParam Long id) {
+        ModelAndView mav = new ModelAndView("addBatir");
+        Batir batir = batirService.getById(id);
+        mav.addObject("batir", batir);
+        return mav;
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteBatir(@PathVariable("id") Integer id) {
+    @GetMapping("/addBatirForm")
+    public ModelAndView addBatir() {
+        ModelAndView mav = new ModelAndView("addBatir");
+        BatirDto batir = new BatirDto();
+        mav.addObject("batir", batir);
+        return mav;
+    }
+
+    @GetMapping("/deleteBatir")
+    public ModelAndView deleteBatir(@RequestParam Long id) {
         Batir batir = batirService.getById(id);
         batirService.delete(batir);
-        return ResponseEntity.ok("Batir deleted");
+
+        return new ModelAndView("redirect:list");
     }
 }

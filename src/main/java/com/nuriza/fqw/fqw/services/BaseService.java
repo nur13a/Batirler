@@ -5,7 +5,7 @@ import java.util.List;
 public interface BaseService<T>{
     List<T> getAll();
     T create(T t);
-    T getById(Integer id);
+    T getById(Long id);
     void delete(T t);
     T update(T t);
 }

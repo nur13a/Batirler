@@ -15,8 +15,9 @@ import javax.persistence.*;
 @Getter
 public class Client {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "clnt_id")
-    private Integer clntId;
+    private Long clntId;
 
     @Column(name = "name")
     private String name;

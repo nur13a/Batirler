@@ -1,9 +1,6 @@
 package com.nuriza.fqw.fqw.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,10 +9,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
 public class Kurulush {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "kurulush_id")
-    private Integer kurulushId;
+    private Long kurulushId;
 
     @Column(name = "name")
     private String name;

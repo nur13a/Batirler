@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BatirRepository extends JpaRepository<Batir, Integer> {
+public interface BatirRepository extends JpaRepository<Batir, Long> {
     Batir findByRoomNumberAndKurulushId(String name, Integer kurulushId);
 }

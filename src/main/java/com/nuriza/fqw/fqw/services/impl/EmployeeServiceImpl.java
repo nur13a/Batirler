@@ -27,7 +27,7 @@ return repository.save(employee);
     }
 
     @Override
-    public Employee getById(Integer id) {
+    public Employee getById(Long id) {
         return repository.findById(id).orElse(new Employee());
     }
 

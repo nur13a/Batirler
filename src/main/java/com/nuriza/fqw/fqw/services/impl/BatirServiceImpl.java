@@ -1,8 +1,10 @@
 package com.nuriza.fqw.fqw.services.impl;
 
 import com.nuriza.fqw.fqw.entity.Batir;
+import com.nuriza.fqw.fqw.models.BatirDto;
 import com.nuriza.fqw.fqw.repositories.BatirRepository;
 import com.nuriza.fqw.fqw.services.BatirService;
+import com.nuriza.fqw.fqw.services.KurulushService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,12 +15,11 @@ import java.util.List;
 @Service
 public class BatirServiceImpl implements BatirService {
 
+    @Autowired
     private BatirRepository repository;
 
     @Autowired
-    public BatirServiceImpl(BatirRepository batirRepository) {
-        this.repository = batirRepository;
-    }
+    private KurulushService kurulushService;
 
     @Override
     public List<Batir> getAll() {
@@ -31,7 +32,19 @@ public class BatirServiceImpl implements BatirService {
     }
 
     @Override
-    public Batir getById(Integer id) {
+    public Batir createFromDto(BatirDto batir) {
+        Batir b = Batir.builder()
+                .batirFloor(batir.getBatirFloor())
+                .isSell(batir.getIsSell())
+                .price(batir.getPrice())
+                .square(batir.getSquare())
+                .kurulushId(kurulushService.getByName(batir.getKurulushName()))
+                .build();
+        return repository.save(b);
+    }
+
+    @Override
+    public Batir getById(Long id) {
         return repository.findById(id).orElse(new Batir());
     }
 

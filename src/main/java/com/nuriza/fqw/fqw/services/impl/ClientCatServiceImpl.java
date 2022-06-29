@@ -29,7 +29,7 @@ public class ClientCatServiceImpl implements ClientCatService {
     }
 
     @Override
-    public ClientCategories getById(Integer id) {
+    public ClientCategories getById(Long id) {
         return repository.findById(id).orElse(new ClientCategories());
     }
 
