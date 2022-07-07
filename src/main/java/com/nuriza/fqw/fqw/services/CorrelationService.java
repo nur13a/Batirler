@@ -8,5 +8,5 @@ import java.util.List;
 public interface CorrelationService {
     public Double getCorrelationBatir();
 
-    Double calculatePearsonCorrelationCoef(List<Integer> x, List<Integer> y, int n);
+    Double calculatePearsonCorrelationCoef(List<Integer> x, List<Integer> y);
 }

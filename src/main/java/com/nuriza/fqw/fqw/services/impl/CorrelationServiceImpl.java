@@ -29,33 +29,32 @@ public class CorrelationServiceImpl implements CorrelationService {
     public Double getCorrelationBatir() {
         List<Integer> squareList = batirService.getSquares();
         List<Integer> priceList = batirService.getPrices();
-        return calculatePearsonCorrelationCoef(squareList, priceList, priceList.size());
+        return calculatePearsonCorrelationCoef(squareList, priceList);
     }
 
-    public Double calculatePearsonCorrelationCoef(List<Integer> x, List<Integer> y, int n) {
-        int sumX = 0, sumY = 0, sumXY = 0;
-        int squareSumX = 0, squareSumY = 0;
-        double correlation;
-        for (int i = 0; i < n; i++) {
-            sumX += x.get(i);
-            sumY += y.get(i);
-            sumXY += x.get(i) * y.get(i);
-            squareSumX += x.get(i) * x.get(i);
-            squareSumY += y.get(i) * y.get(i);
-        }
-        correlation = (n * sumXY - sumX * sumY) /
-                (Math.sqrt((n * squareSumX -
-                        sumX * sumX) * (n * squareSumY -
-                        sumY * sumY)));
+    public Double calculatePearsonCorrelationCoef(List<Integer> xs, List<Integer> ys) {
+        double sx = 0.0;
+        double sy = 0.0;
+        double sxx = 0.0;
+        double syy = 0.0;
+        double sxy = 0.0;
 
+        int n = xs.size();
+        for (int i = 0; i < n; ++i) {
+            int x = xs.get(i);
+            double y = ys.get(i);
 
-        double []doubleX = new double[x.size()];
-        double []doubleY = new double[y.size()];
-        for (int i = 0; i < n; i++) {
-            doubleX[i]= x.get(i);
-            doubleY[i]=y.get(i);
+            sx += x;
+            sy += y;
+            sxx += x * x;
+            syy += y * y;
+            sxy += x * y;
         }
-        return getPearsonCorrelation(doubleX,doubleY);
+        double cov = sxy / n - sx * sy / n / n;
+        double sigmax = Math.sqrt(sxx / n - sx * sx / n / n);
+        double sigmay = Math.sqrt(syy / n - sy * sy / n / n);
+
+        return cov / sigmax / sigmay;
 
     }
 
